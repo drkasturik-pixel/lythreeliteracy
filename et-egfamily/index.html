@@ -70,13 +70,14 @@ body{
 }
 
 .game-content{
-    flex:1;
+    height:calc(100vh - 60px);
     width:100%;
     display:flex;
     flex-direction:column;
-    justify-content:space-between;
     align-items:center;
-    padding:5px 0;
+    justify-content:flex-start;
+    overflow:hidden;
+    position:relative;
 }
 
 /* BALLOON SECTION */
@@ -85,19 +86,21 @@ body{
     display:flex;
     flex-direction:column;
     align-items:center;
-    margin-top:5px;
+    margin-top:2px;
+    transform:scale(0.88);
+    transform-origin:top center;
     animation:floatDown 2s ease-out;
 }
 
 @keyframes floatDown{
 
     from{
-        transform:translateY(-50px);
+        transform:translateY(-50px) scale(0.88);
         opacity:0;
     }
 
     to{
-        transform:translateY(0px);
+        transform:translateY(0px) scale(0.88);
         opacity:1;
     }
 }
@@ -155,40 +158,43 @@ body{
 /* FEEDBACK */
 
 .feedback{
-    height:50px;
-    font-size:44px;
+    height:45px;
+    font-size:42px;
     display:flex;
     align-items:center;
     justify-content:center;
+    margin-top:5px;
 }
 
 /* BUCKET AREA */
 
 .bucket-row{
     width:100%;
+    height:130px;
     display:flex;
     justify-content:space-evenly;
     align-items:flex-end;
-    padding:0 4px 8px 4px;
-    gap:4px;
-    flex-shrink:0;
+    gap:2px;
+    padding:0 4px 2px 4px;
+    position:absolute;
+    bottom:0;
+    left:0;
 }
 
-/* BUCKETS */
+/* BUCKET */
 
 .bucket{
-    flex:1;
-    max-width:24%;
-    min-width:68px;
+    width:24%;
     height:120px;
     position:relative;
-    cursor:pointer;
     display:flex;
     justify-content:center;
     align-items:flex-end;
+    cursor:pointer;
+    overflow:visible;
 }
 
-/* BUCKET IMAGES */
+/* BUCKET IMAGE */
 
 .bucket img{
     width:100%;
@@ -201,7 +207,7 @@ body{
 
 .bucket-label{
     position:absolute;
-    bottom:12px;
+    bottom:10px;
     left:50%;
     transform:translateX(-50%);
     color:white;
@@ -246,6 +252,10 @@ body{
         padding:8px 5px;
     }
 
+    .balloon-wrapper{
+        transform:scale(0.78);
+    }
+
     .balloon{
         width:100px;
         height:130px;
@@ -271,18 +281,22 @@ body{
     }
 
     .feedback{
-        font-size:38px;
-        height:42px;
+        font-size:36px;
+        height:40px;
+    }
+
+    .bucket-row{
+        height:105px;
+        padding-bottom:0px;
     }
 
     .bucket{
-        height:92px;
-        min-width:60px;
+        height:95px;
     }
 
     .bucket-label{
         font-size:14px;
-        bottom:10px;
+        bottom:8px;
     }
 
     #scoreText{
@@ -430,7 +444,7 @@ const questions = [
 
 ];
 
-// SHUFFLE
+// SHUFFLE QUESTIONS
 
 questions.sort(()=>Math.random()-0.5);
 
@@ -557,7 +571,7 @@ function checkAnswer(answer){
     }
 }
 
-// END SCREEN
+// SHOW END SCREEN
 
 function showEnd(){
 
@@ -569,7 +583,7 @@ function showEnd(){
     "⭐ Score: " + score + " / " + questions.length;
 }
 
-// REPLAY
+// RESTART
 
 function restartGame(){
 
