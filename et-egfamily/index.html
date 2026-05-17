@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Word Family Balloon Buckets</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f8f4ff;
+    overflow:hidden;
+    height:100vh;
+    width:100vw;
+}
+
+.screen{
+    display:none;
+    width:100%;
+    height:100vh;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+.active{
+    display:flex;
+}
+
+/* TOP BAR */
+
+.top-bar{
+    width:100%;
+    background:#d9c8f3;
+    color:#333;
+    text-align:center;
+    padding:10px;
+    font-size:16px;
+    font-weight:bold;
+    line-height:1.3;
+}
+
+/* INTRO */
+
+#intro img{
+    width:180px;
+}
+
+/* GAME AREA */
+
+#game{
+    justify-content:space-between;
+    padding-bottom:10px;
+}
+
+.game-area{
+    flex:1;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:space-between;
+    position:relative;
+}
+
+/* BALLOON */
+
+.balloon-wrapper{
+    margin-top:10px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    animation:floatDown 2s ease-out;
+}
+
+@keyframes floatDown{
+    from{
+        transform:translateY(-80px);
+        opacity:0;
+    }
+    to{
+        transform:translateY(0px);
+        opacity:1;
+    }
+}
+
+.balloon{
+    width:130px;
+    height:160px;
+    border-radius:50%;
+    border:5px solid #888;
+    background:white;
+    position:relative;
+    transition:0.4s;
+}
+
+.balloon::after{
+    content:'';
+    width:4px;
+    height:55px;
+    background:#777;
+    position:absolute;
+    bottom:-55px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+/* WORD CARD */
+
+.word-card{
+    margin-top:60px;
+    background:white;
+    border-radius:18px;
+    padding:10px;
+    width:170px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.12);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.word-card img{
+    width:90px;
+    height:90px;
+    object-fit:contain;
+}
+
+.word-text{
+    font-size:32px;
+    font-weight:bold;
+    margin-top:5px;
+    color:#333;
+}
+
+/* FEEDBACK */
+
+.feedback{
+    height:60px;
+    font-size:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* BUCKETS */
+
+.bucket-row{
+    width:100%;
+    display:flex;
+    justify-content:space-evenly;
+    align-items:flex-end;
+    padding:5px;
+}
+
+.bucket{
+    width:22%;
+    height:90px;
+    border-radius:0 0 18px 18px;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+    border:4px solid rgba(255,255,255,0.8);
+    user-select:none;
+}
+
+.red{ background:#e57373; }
+.blue{ background:#64b5f6; }
+.green{ background:#81c784; }
+.purple{ background:#9575cd; }
+
+/* END SCREEN */
+
+#end h1{
+    color:#6a1b9a;
+    margin-bottom:10px;
+}
+
+#scoreText{
+    font-size:32px;
+    margin-bottom:20px;
+}
+
+.replay-btn{
+    padding:14px 28px;
+    border:none;
+    border-radius:18px;
+    background:#ffb74d;
+    font-size:22px;
+    cursor:pointer;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .top-bar{
+        font-size:13px;
+        padding:8px;
+    }
+
+    .balloon{
+        width:110px;
+        height:140px;
+    }
+
+    .word-card{
+        width:150px;
+    }
+
+    .word-card img{
+        width:70px;
+        height:70px;
+    }
+
+    .word-text{
+        font-size:26px;
+    }
+
+    .bucket{
+        height:80px;
+        font-size:16px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+
+<div id="intro" class="screen active">
+    <img src="assets/innovine-logo.png">
+</div>
+
+<!-- GAME -->
+
+<div id="game" class="screen">
+
+    <div class="top-bar">
+        Read the words that appear with the balloon outline and colour the balloon as per the colour code in the colour buckets.
+    </div>
+
+    <div class="game-area">
+
+        <div class="balloon-wrapper">
+
+            <div id="balloon" class="balloon"></div>
+
+            <div class="word-card">
+
+                <img id="wordImage" src="">
+
+                <div id="wordText" class="word-text"></div>
+
+            </div>
+
+        </div>
+
+        <div id="feedback" class="feedback"></div>
+
+        <div class="bucket-row">
+
+            <div class="bucket red" onclick="checkAnswer('et')">
+                -et
+            </div>
+
+            <div class="bucket blue" onclick="checkAnswer('eg')">
+                -eg
+            </div>
+
+            <div class="bucket green" onclick="checkAnswer('en')">
+                -en
+            </div>
+
+            <div class="bucket purple" onclick="checkAnswer('ed')">
+                -ed
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- END -->
+
+<div id="end" class="screen">
+
+    <h1>🎉 Great Job!</h1>
+
+    <div id="scoreText"></div>
+
+    <button class="replay-btn" onclick="restartGame()">
+        🔄 Replay
+    </button>
+
+</div>
+
+<!-- AUDIO -->
+
+<audio id="correctSound" src="assets/correct.mp3"></audio>
+<audio id="wrongSound" src="assets/wrong.mp3"></audio>
+<audio id="bgMusic" src="assets/background-music.mp3" loop></audio>
+
+<script>
+
+// QUESTIONS
+
+const questions = [
+
+{word:"jet", family:"et", img:"assets/jet.png"},
+{word:"net", family:"et", img:"assets/net.png"},
+{word:"pet", family:"et", img:"assets/pet.png"},
+{word:"wet", family:"et", img:"assets/wet.png"},
+
+{word:"leg", family:"eg", img:"assets/leg.png"},
+{word:"peg", family:"eg", img:"assets/peg.png"},
+{word:"egg", family:"eg", img:"assets/egg.png"},
+{word:"beg", family:"eg", img:"assets/beg.png"},
+
+{word:"hen", family:"en", img:"assets/hen.png"},
+{word:"pen", family:"en", img:"assets/pen.png"},
+{word:"ten", family:"en", img:"assets/ten.png"},
+{word:"den", family:"en", img:"assets/den.png"},
+
+{word:"bed", family:"ed", img:"assets/bed.png"},
+{word:"shed", family:"ed", img:"assets/shed.png"},
+{word:"wed", family:"ed", img:"assets/wed.png"},
+{word:"red", family:"ed", img:"assets/red.png"}
+
+];
+
+// SHUFFLE
+
+questions.sort(()=>Math.random()-0.5);
+
+let current = 0;
+let score = 0;
+let locked = false;
+
+// SPEAK
+
+function speak(text, rate=0.8){
+
+    let msg = new SpeechSynthesisUtterance(text);
+
+    msg.rate = rate;
+
+    speechSynthesis.speak(msg);
+}
+
+// START GAME
+
+setTimeout(()=>{
+
+    document.getElementById("intro").classList.remove("active");
+
+    document.getElementById("game").classList.add("active");
+
+    speak("Look at the word and picture tied to the balloon. Tap the correct colour bucket.");
+
+    setTimeout(()=>{
+
+        let music = document.getElementById("bgMusic");
+
+        music.volume = 0.2;
+
+        music.play().catch(()=>{});
+
+        loadQuestion();
+
+    },4000);
+
+},5000);
+
+// LOAD QUESTION
+
+function loadQuestion(){
+
+    locked = false;
+
+    let q = questions[current];
+
+    document.getElementById("wordText").innerText = q.word;
+
+    document.getElementById("wordImage").src = q.img;
+
+    document.getElementById("feedback").innerText = "";
+
+    document.getElementById("balloon").style.background = "white";
+
+    speak(q.word);
+}
+
+// CHECK ANSWER
+
+function checkAnswer(answer){
+
+    if(locked) return;
+
+    let q = questions[current];
+
+    let feedback = document.getElementById("feedback");
+
+    let balloon = document.getElementById("balloon");
+
+    if(answer === q.family){
+
+        locked = true;
+
+        score++;
+
+        document.getElementById("correctSound").play();
+
+        feedback.innerText = "👏";
+
+        if(answer === "et"){
+            balloon.style.background = "#e57373";
+        }
+
+        if(answer === "eg"){
+            balloon.style.background = "#64b5f6";
+        }
+
+        if(answer === "en"){
+            balloon.style.background = "#81c784";
+        }
+
+        if(answer === "ed"){
+            balloon.style.background = "#9575cd";
+        }
+
+        setTimeout(()=>{
+
+            current++;
+
+            if(current < questions.length){
+
+                loadQuestion();
+
+            }else{
+
+                showEnd();
+            }
+
+        },1500);
+
+    }else{
+
+        document.getElementById("wrongSound").play();
+
+        feedback.innerText = "❌";
+
+        setTimeout(()=>{
+            feedback.innerText = "";
+        },1000);
+    }
+}
+
+// END
+
+function showEnd(){
+
+    document.getElementById("game").classList.remove("active");
+
+    document.getElementById("end").classList.add("active");
+
+    document.getElementById("scoreText").innerText =
+    "⭐ Score: " + score + " / " + questions.length;
+}
+
+// REPLAY
+
+function restartGame(){
+
+    current = 0;
+
+    score = 0;
+
+    questions.sort(()=>Math.random()-0.5);
+
+    document.getElementById("end").classList.remove("active");
+
+    document.getElementById("game").classList.add("active");
+
+    loadQuestion();
+}
+
+</script>
+
+</body>
+</html>
