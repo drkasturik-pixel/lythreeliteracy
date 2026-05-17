@@ -2,36 +2,51 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <title>Word Family Balloon Buckets</title>
 
 <style>
 
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
+    box-sizing:border-box;
 }
 
 body{
     font-family:Arial, sans-serif;
-    background:#f8f4ff;
+    background:#f7f2ff;
     overflow:hidden;
-    height:100vh;
     width:100vw;
+    height:100vh;
 }
+
+/* SCREENS */
 
 .screen{
     display:none;
     width:100%;
     height:100vh;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
-    flex-direction:column;
 }
 
 .active{
     display:flex;
+}
+
+/* INTRO */
+
+#intro{
+    background:#f7f2ff;
+}
+
+#intro img{
+    width:180px;
+    max-width:60%;
 }
 
 /* TOP BAR */
@@ -41,59 +56,57 @@ body{
     background:#d9c8f3;
     color:#333;
     text-align:center;
-    padding:10px;
-    font-size:16px;
+    padding:10px 8px;
+    font-size:15px;
     font-weight:bold;
     line-height:1.3;
+    flex-shrink:0;
 }
 
-/* INTRO */
-
-#intro img{
-    width:180px;
-}
-
-/* GAME AREA */
+/* GAME */
 
 #game{
-    justify-content:space-between;
-    padding-bottom:10px;
+    justify-content:flex-start;
 }
 
-.game-area{
+.game-content{
     flex:1;
     width:100%;
     display:flex;
     flex-direction:column;
-    align-items:center;
     justify-content:space-between;
-    position:relative;
+    align-items:center;
+    padding:5px 0;
 }
 
-/* BALLOON */
+/* BALLOON SECTION */
 
 .balloon-wrapper{
-    margin-top:10px;
     display:flex;
     flex-direction:column;
     align-items:center;
+    margin-top:5px;
     animation:floatDown 2s ease-out;
 }
 
 @keyframes floatDown{
+
     from{
-        transform:translateY(-80px);
+        transform:translateY(-50px);
         opacity:0;
     }
+
     to{
         transform:translateY(0px);
         opacity:1;
     }
 }
 
+/* BALLOON */
+
 .balloon{
-    width:130px;
-    height:160px;
+    width:120px;
+    height:150px;
     border-radius:50%;
     border:5px solid #888;
     background:white;
@@ -104,90 +117,114 @@ body{
 .balloon::after{
     content:'';
     width:4px;
-    height:55px;
+    height:45px;
     background:#777;
     position:absolute;
-    bottom:-55px;
     left:50%;
+    bottom:-45px;
     transform:translateX(-50%);
 }
 
 /* WORD CARD */
 
 .word-card{
-    margin-top:60px;
+    margin-top:48px;
+    width:170px;
     background:white;
     border-radius:18px;
-    padding:10px;
-    width:170px;
     box-shadow:0 2px 8px rgba(0,0,0,0.12);
+    padding:8px;
     display:flex;
     flex-direction:column;
     align-items:center;
 }
 
 .word-card img{
-    width:90px;
-    height:90px;
+    width:85px;
+    height:85px;
     object-fit:contain;
 }
 
 .word-text{
-    font-size:32px;
+    font-size:30px;
     font-weight:bold;
-    margin-top:5px;
-    color:#333;
+    color:#444;
+    margin-top:4px;
 }
 
 /* FEEDBACK */
 
 .feedback{
-    height:60px;
-    font-size:48px;
+    height:50px;
+    font-size:44px;
     display:flex;
     align-items:center;
     justify-content:center;
 }
 
-/* BUCKETS */
+/* BUCKET AREA */
 
 .bucket-row{
     width:100%;
     display:flex;
     justify-content:space-evenly;
     align-items:flex-end;
-    padding:5px;
+    padding:0 4px 8px 4px;
+    gap:4px;
+    flex-shrink:0;
 }
+
+/* BUCKETS */
 
 .bucket{
-    width:22%;
-    height:90px;
-    border-radius:0 0 18px 18px;
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:20px;
-    font-weight:bold;
+    flex:1;
+    max-width:24%;
+    min-width:68px;
+    height:120px;
+    position:relative;
     cursor:pointer;
-    border:4px solid rgba(255,255,255,0.8);
-    user-select:none;
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
 }
 
-.red{ background:#e57373; }
-.blue{ background:#64b5f6; }
-.green{ background:#81c784; }
-.purple{ background:#9575cd; }
+/* BUCKET IMAGES */
+
+.bucket img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+}
+
+/* LABEL */
+
+.bucket-label{
+    position:absolute;
+    bottom:12px;
+    left:50%;
+    transform:translateX(-50%);
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    text-shadow:1px 1px 2px rgba(0,0,0,0.4);
+    pointer-events:none;
+}
 
 /* END SCREEN */
 
+#end{
+    background:#f7f2ff;
+    text-align:center;
+}
+
 #end h1{
-    color:#6a1b9a;
+    color:#7b1fa2;
     margin-bottom:10px;
 }
 
 #scoreText{
-    font-size:32px;
+    font-size:30px;
     margin-bottom:20px;
 }
 
@@ -205,31 +242,56 @@ body{
 @media(max-width:600px){
 
     .top-bar{
-        font-size:13px;
-        padding:8px;
+        font-size:12px;
+        padding:8px 5px;
     }
 
     .balloon{
-        width:110px;
-        height:140px;
+        width:100px;
+        height:130px;
+    }
+
+    .balloon::after{
+        height:35px;
+        bottom:-35px;
     }
 
     .word-card{
-        width:150px;
+        width:145px;
+        margin-top:38px;
     }
 
     .word-card img{
-        width:70px;
-        height:70px;
+        width:65px;
+        height:65px;
     }
 
     .word-text{
-        font-size:26px;
+        font-size:24px;
+    }
+
+    .feedback{
+        font-size:38px;
+        height:42px;
     }
 
     .bucket{
-        height:80px;
-        font-size:16px;
+        height:92px;
+        min-width:60px;
+    }
+
+    .bucket-label{
+        font-size:14px;
+        bottom:10px;
+    }
+
+    #scoreText{
+        font-size:24px;
+    }
+
+    .replay-btn{
+        font-size:18px;
+        padding:12px 24px;
     }
 }
 
@@ -241,7 +303,9 @@ body{
 <!-- INTRO -->
 
 <div id="intro" class="screen active">
+
     <img src="assets/innovine-logo.png">
+
 </div>
 
 <!-- GAME -->
@@ -252,7 +316,9 @@ body{
         Read the words that appear with the balloon outline and colour the balloon as per the colour code in the colour buckets.
     </div>
 
-    <div class="game-area">
+    <div class="game-content">
+
+        <!-- BALLOON -->
 
         <div class="balloon-wrapper">
 
@@ -268,24 +334,44 @@ body{
 
         </div>
 
+        <!-- FEEDBACK -->
+
         <div id="feedback" class="feedback"></div>
+
+        <!-- BUCKETS -->
 
         <div class="bucket-row">
 
-            <div class="bucket red" onclick="checkAnswer('et')">
-                -et
+            <div class="bucket" onclick="checkAnswer('et')">
+
+                <img src="assets/red-bucket.png">
+
+                <div class="bucket-label">-et</div>
+
             </div>
 
-            <div class="bucket blue" onclick="checkAnswer('eg')">
-                -eg
+            <div class="bucket" onclick="checkAnswer('eg')">
+
+                <img src="assets/blue-bucket.png">
+
+                <div class="bucket-label">-eg</div>
+
             </div>
 
-            <div class="bucket green" onclick="checkAnswer('en')">
-                -en
+            <div class="bucket" onclick="checkAnswer('en')">
+
+                <img src="assets/green-bucket.png">
+
+                <div class="bucket-label">-en</div>
+
             </div>
 
-            <div class="bucket purple" onclick="checkAnswer('ed')">
-                -ed
+            <div class="bucket" onclick="checkAnswer('ed')">
+
+                <img src="assets/purple-bucket.png">
+
+                <div class="bucket-label">-ed</div>
+
             </div>
 
         </div>
@@ -311,7 +397,9 @@ body{
 <!-- AUDIO -->
 
 <audio id="correctSound" src="assets/correct.mp3"></audio>
+
 <audio id="wrongSound" src="assets/wrong.mp3"></audio>
+
 <audio id="bgMusic" src="assets/background-music.mp3" loop></audio>
 
 <script>
@@ -412,9 +500,9 @@ function checkAnswer(answer){
 
     let q = questions[current];
 
-    let feedback = document.getElementById("feedback");
-
     let balloon = document.getElementById("balloon");
+
+    let feedback = document.getElementById("feedback");
 
     if(answer === q.family){
 
@@ -469,7 +557,7 @@ function checkAnswer(answer){
     }
 }
 
-// END
+// END SCREEN
 
 function showEnd(){
 
