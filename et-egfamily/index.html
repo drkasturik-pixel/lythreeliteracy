@@ -5,7 +5,7 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>Word Family Balloon Buckets</title>
+<title>Word Family Balloon Crayons</title>
 
 <style>
 
@@ -13,6 +13,7 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
     margin:0;
     padding:0;
     box-sizing:border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body{
@@ -46,7 +47,7 @@ body{
 
 #intro img{
     width:180px;
-    max-width:60%;
+    max-width:70%;
 }
 
 /* TOP BAR */
@@ -57,10 +58,9 @@ body{
     color:#333;
     text-align:center;
     padding:10px 8px;
-    font-size:15px;
+    font-size:14px;
     font-weight:bold;
-    line-height:1.3;
-    flex-shrink:0;
+    line-height:1.4;
 }
 
 /* GAME */
@@ -70,46 +70,43 @@ body{
 }
 
 .game-content{
-    height:calc(100vh - 60px);
     width:100%;
+    height:calc(100vh - 55px);
+    position:relative;
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:flex-start;
     overflow:hidden;
-    position:relative;
 }
 
-/* BALLOON SECTION */
+/* BALLOON */
 
 .balloon-wrapper{
     display:flex;
     flex-direction:column;
     align-items:center;
-    margin-top:2px;
-    transform:scale(0.88);
-    transform-origin:top center;
+    margin-top:5px;
     animation:floatDown 2s ease-out;
+    transform:scale(0.82);
+    transform-origin:top center;
 }
 
 @keyframes floatDown{
 
     from{
-        transform:translateY(-50px) scale(0.88);
+        transform:translateY(-60px) scale(0.82);
         opacity:0;
     }
 
     to{
-        transform:translateY(0px) scale(0.88);
+        transform:translateY(0px) scale(0.82);
         opacity:1;
     }
 }
 
-/* BALLOON */
-
 .balloon{
-    width:120px;
-    height:150px;
+    width:130px;
+    height:160px;
     border-radius:50%;
     border:5px solid #888;
     background:white;
@@ -132,7 +129,7 @@ body{
 
 .word-card{
     margin-top:48px;
-    width:170px;
+    width:180px;
     background:white;
     border-radius:18px;
     box-shadow:0 2px 8px rgba(0,0,0,0.12);
@@ -143,8 +140,8 @@ body{
 }
 
 .word-card img{
-    width:85px;
-    height:85px;
+    width:90px;
+    height:90px;
     object-fit:contain;
 }
 
@@ -152,7 +149,7 @@ body{
     font-size:30px;
     font-weight:bold;
     color:#444;
-    margin-top:4px;
+    margin-top:5px;
 }
 
 /* FEEDBACK */
@@ -160,67 +157,61 @@ body{
 .feedback{
     height:45px;
     font-size:42px;
+    margin-top:5px;
     display:flex;
     align-items:center;
     justify-content:center;
-    margin-top:5px;
 }
 
-/* BUCKET AREA */
+/* CRAYON ROW */
 
-.bucket-row{
+.crayon-row{
     width:100%;
-    height:130px;
+    height:145px;
     display:flex;
     justify-content:space-evenly;
     align-items:flex-end;
-    gap:2px;
-    padding:0 4px 2px 4px;
     position:absolute;
     bottom:0;
     left:0;
+    padding:0 2px 5px 2px;
 }
 
-/* BUCKET */
+/* CRAYONS */
 
-.bucket{
+.crayon{
     width:24%;
-    height:120px;
+    height:135px;
     position:relative;
     display:flex;
     justify-content:center;
     align-items:flex-end;
     cursor:pointer;
-    overflow:visible;
 }
 
-/* BUCKET IMAGE */
-
-.bucket img{
+.crayon img{
     width:100%;
     height:100%;
     object-fit:contain;
-    display:block;
 }
 
 /* LABEL */
 
-.bucket-label{
+.crayon-label{
     position:absolute;
-    bottom:10px;
+    bottom:18px;
     left:50%;
     transform:translateX(-50%);
-    color:white;
     font-size:18px;
     font-weight:bold;
-    text-shadow:1px 1px 2px rgba(0,0,0,0.4);
+    color:white;
+    text-shadow:1px 1px 2px rgba(0,0,0,0.5);
     pointer-events:none;
 }
 
 /* END SCREEN */
 
 #end{
-    background:#f7f2ff;
     text-align:center;
 }
 
@@ -243,37 +234,47 @@ body{
     cursor:pointer;
 }
 
+/* STARS */
+
+.stars{
+    font-size:30px;
+    animation:twinkle 1s infinite alternate;
+    margin-bottom:15px;
+}
+
+@keyframes twinkle{
+
+    from{
+        transform:scale(1);
+        opacity:0.8;
+    }
+
+    to{
+        transform:scale(1.1);
+        opacity:1;
+    }
+}
+
 /* MOBILE */
 
 @media(max-width:600px){
 
     .top-bar{
         font-size:12px;
-        padding:8px 5px;
+        padding:8px 6px;
     }
 
     .balloon-wrapper{
-        transform:scale(0.78);
-    }
-
-    .balloon{
-        width:100px;
-        height:130px;
-    }
-
-    .balloon::after{
-        height:35px;
-        bottom:-35px;
+        transform:scale(0.72);
     }
 
     .word-card{
-        width:145px;
-        margin-top:38px;
+        width:150px;
     }
 
     .word-card img{
-        width:65px;
-        height:65px;
+        width:68px;
+        height:68px;
     }
 
     .word-text{
@@ -282,21 +283,19 @@ body{
 
     .feedback{
         font-size:36px;
-        height:40px;
     }
 
-    .bucket-row{
-        height:105px;
-        padding-bottom:0px;
+    .crayon-row{
+        height:120px;
     }
 
-    .bucket{
-        height:95px;
+    .crayon{
+        height:110px;
     }
 
-    .bucket-label{
+    .crayon-label{
         font-size:14px;
-        bottom:8px;
+        bottom:14px;
     }
 
     #scoreText{
@@ -327,7 +326,7 @@ body{
 <div id="game" class="screen">
 
     <div class="top-bar">
-        Read the words that appear with the balloon outline and colour the balloon as per the colour code in the colour buckets.
+        Read the words that appear with the balloon outline and colour the balloon as per the colour code of the crayons.
     </div>
 
     <div class="game-content">
@@ -352,39 +351,47 @@ body{
 
         <div id="feedback" class="feedback"></div>
 
-        <!-- BUCKETS -->
+        <!-- CRAYONS -->
 
-        <div class="bucket-row">
+        <div class="crayon-row">
 
-            <div class="bucket" onclick="checkAnswer('et')">
+            <!-- RED -->
 
-                <img src="assets/red-bucket.png">
+            <div class="crayon" onclick="checkAnswer('et')">
 
-                <div class="bucket-label">-et</div>
+                <img src="assets/redcrayon.png">
 
-            </div>
-
-            <div class="bucket" onclick="checkAnswer('eg')">
-
-                <img src="assets/blue-bucket.png">
-
-                <div class="bucket-label">-eg</div>
+                <div class="crayon-label">-et</div>
 
             </div>
 
-            <div class="bucket" onclick="checkAnswer('en')">
+            <!-- BLUE -->
 
-                <img src="assets/green-bucket.png">
+            <div class="crayon" onclick="checkAnswer('eg')">
 
-                <div class="bucket-label">-en</div>
+                <img src="assets/bluecrayon.png">
+
+                <div class="crayon-label">-eg</div>
 
             </div>
 
-            <div class="bucket" onclick="checkAnswer('ed')">
+            <!-- GREEN -->
 
-                <img src="assets/purple-bucket.png">
+            <div class="crayon" onclick="checkAnswer('en')">
 
-                <div class="bucket-label">-ed</div>
+                <img src="assets/greencrayon.png">
+
+                <div class="crayon-label">-en</div>
+
+            </div>
+
+            <!-- YELLOW -->
+
+            <div class="crayon" onclick="checkAnswer('ed')">
+
+                <img src="assets/yellowcrayon.png">
+
+                <div class="crayon-label">-ed</div>
 
             </div>
 
@@ -397,6 +404,8 @@ body{
 <!-- END -->
 
 <div id="end" class="screen">
+
+    <div class="stars">⭐ ⭐ ⭐</div>
 
     <h1>🎉 Great Job!</h1>
 
@@ -444,7 +453,7 @@ const questions = [
 
 ];
 
-// SHUFFLE QUESTIONS
+// SHUFFLE
 
 questions.sort(()=>Math.random()-0.5);
 
@@ -454,7 +463,7 @@ let locked = false;
 
 // SPEAK
 
-function speak(text, rate=0.8){
+function speak(text, rate=0.78){
 
     let msg = new SpeechSynthesisUtterance(text);
 
@@ -471,13 +480,13 @@ setTimeout(()=>{
 
     document.getElementById("game").classList.add("active");
 
-    speak("Look at the word and picture tied to the balloon. Tap the correct colour bucket.");
+    speak("Look at the word and picture tied to the balloon. Tap the correct colour crayon.");
 
     setTimeout(()=>{
 
         let music = document.getElementById("bgMusic");
 
-        music.volume = 0.2;
+        music.volume = 0.18;
 
         music.play().catch(()=>{});
 
@@ -528,6 +537,8 @@ function checkAnswer(answer){
 
         feedback.innerText = "👏";
 
+        // BALLOON COLOUR
+
         if(answer === "et"){
             balloon.style.background = "#e57373";
         }
@@ -541,7 +552,7 @@ function checkAnswer(answer){
         }
 
         if(answer === "ed"){
-            balloon.style.background = "#9575cd";
+            balloon.style.background = "#ffd54f";
         }
 
         setTimeout(()=>{
@@ -571,7 +582,7 @@ function checkAnswer(answer){
     }
 }
 
-// SHOW END SCREEN
+// END SCREEN
 
 function showEnd(){
 
@@ -583,7 +594,7 @@ function showEnd(){
     "⭐ Score: " + score + " / " + questions.length;
 }
 
-// RESTART
+// REPLAY
 
 function restartGame(){
 
