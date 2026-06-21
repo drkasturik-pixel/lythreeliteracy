@@ -348,7 +348,19 @@ body{
 
         <!-- FEEDBACK -->
 
-        <div id="feedback" class="feedback"></div>
+        <div id="feedback" class="feedback"></div><img
+    id="confetti"
+    src="assets/confetti.gif"
+    style="
+        display:none;
+        width:180px;
+        position:absolute;
+        top:35%;
+        left:50%;
+        transform:translateX(-50%);
+        pointer-events:none;
+        z-index:999;
+    ">
 
         <!-- CRAYONS -->
 
@@ -418,7 +430,6 @@ body{
 
 <!-- AUDIO -->
 
-<audio id="correctSound" src="assets/correct.mp3"></audio>
 
 <audio id="wrongSound" src="assets/wrong.mp3"></audio>
 
@@ -447,7 +458,6 @@ const questions = [
 
 {word:"bed", family:"ed", img:"assets/bed.png"},
 {word:"shed", family:"ed", img:"assets/shed.png"},
-{word:"wed", family:"ed", img:"assets/wed.png"},
 {word:"red", family:"ed", img:"assets/red.png"}
 
 ];
@@ -530,11 +540,14 @@ function checkAnswer(answer){
 
         locked = true;
 
-        score++;
+       score++;
 
-        document.getElementById("correctSound").play();
+let confetti =
+document.getElementById("confetti");
 
-        feedback.innerText = "👏";
+confetti.style.display = "block";
+
+feedback.innerText = "✅";
 
         if(answer === "et"){
             balloon.style.background = "#e57373";
@@ -554,18 +567,22 @@ function checkAnswer(answer){
 
         setTimeout(()=>{
 
-            current++;
+    document.getElementById(
+        "confetti"
+    ).style.display = "none";
 
-            if(current < questions.length){
+    current++;
 
-                loadQuestion();
+    if(current < questions.length){
 
-            }else{
+        loadQuestion();
 
-                showEnd();
-            }
+    }else{
 
-        },1500);
+        showEnd();
+    }
+
+},1500);
 
     }else{
 
@@ -574,7 +591,9 @@ function checkAnswer(answer){
         feedback.innerText = "❌";
 
         setTimeout(()=>{
-            feedback.innerText = "";
+            feedback.innerText = ""; document.getElementById(
+    "confetti"
+).style.display = "none";
         },1000);
     }
 }
