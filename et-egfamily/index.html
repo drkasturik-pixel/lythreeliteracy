@@ -8,265 +8,140 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
 <title>Word Family Balloon Crayons</title>
 
 <style>
-
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    -webkit-tap-highlight-color: transparent;
 }
 
 body{
     font-family:Arial, sans-serif;
     background:#f7f2ff;
     overflow:hidden;
-    width:100vw;
-    height:100vh;
 }
 
-/* SCREENS */
-
+/* Screens */
 .screen{
     display:none;
     width:100%;
     height:100vh;
-    flex-direction:column;
     justify-content:center;
     align-items:center;
+    flex-direction:column;
 }
 
-.active{
-    display:flex;
-}
+.active{ display:flex; }
 
-/* INTRO */
+/* Intro */
+#intro img{ width:180px; }
 
-#intro{
-    background:#f7f2ff;
-}
-
-#intro img{
-    width:180px;
-    max-width:70%;
-}
-
-/* TOP BAR */
-
+/* Top bar */
 .top-bar{
     width:100%;
     background:#d9c8f3;
-    color:#333;
+    padding:10px;
     text-align:center;
-    padding:10px 8px;
     font-size:14px;
     font-weight:bold;
-    line-height:1.4;
 }
 
-/* GAME */
-
-#game{
-    justify-content:flex-start;
-}
-
+/* Game layout */
 .game-content{
     width:100%;
-    height:calc(100vh - 55px);
-    position:relative;
+    height:calc(100vh - 50px);
     display:flex;
     flex-direction:column;
     align-items:center;
-    overflow:hidden;
 }
 
-/* BALLOON */
-
-.balloon-wrapper{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    margin-top:5px;
-    animation:floatDown 2s ease-out;
-    transform:scale(0.82);
-    transform-origin:top center;
-}
-
-@keyframes floatDown{
-
-    from{
-        transform:translateY(-60px) scale(0.82);
-        opacity:0;
-    }
-
-    to{
-        transform:translateY(0px) scale(0.82);
-        opacity:1;
-    }
-}
-
+/* Balloon */
 .balloon{
     width:130px;
     height:160px;
     border-radius:50%;
     border:5px solid #888;
-    background:white;
-    position:relative;
-    transition:0.4s;
+    margin-top:10px;
 }
 
-.balloon::after{
-    content:'';
-    width:4px;
-    height:45px;
-    background:#777;
-    position:absolute;
-    left:50%;
-    bottom:-45px;
-    transform:translateX(-50%);
-}
-
-/* WORD CARD */
-
+/* Word card */
 .word-card{
-    margin-top:48px;
-    width:180px;
+    margin-top:20px;
+    width:170px;
     background:white;
-    border-radius:18px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.12);
-    padding:8px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+    border-radius:15px;
+    text-align:center;
+    padding:10px;
 }
 
 .word-card img{
-    width:90px;
-    height:90px;
-    object-fit:contain;
+    width:80px;
 }
 
 .word-text{
-    font-size:30px;
+    font-size:28px;
     font-weight:bold;
-    color:#444;
-    margin-top:5px;
 }
 
-/* FEEDBACK */
-
-.feedback{
-    height:45px;
-    font-size:42px;
-    margin-top:5px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-/* CRAYON ROW */
-
+/* Crayons */
 .crayon-row{
     width:100%;
-    height:145px;
     display:flex;
-    justify-content:space-evenly;
-    align-items:flex-end;
+    justify-content:space-around;
     position:absolute;
     bottom:0;
-    left:0;
-    padding:0 2px 5px 2px;
 }
 
-/* CRAYONS */
-
 .crayon{
-    width:24%;
-    height:135px;
+    width:23%;
     position:relative;
-    display:flex;
-    justify-content:center;
-    align-items:flex-end;
     cursor:pointer;
 }
 
 .crayon img{
     width:100%;
-    height:100%;
-    object-fit:contain;
 }
 
 .crayon-label{
     position:absolute;
-    top:48%;
+    top:50%;
     left:50%;
-    transform:translate(-50%, -50%);
-    font-size:18px;
-    font-weight:900;
-    color:#0d1b4c;
-    text-shadow:1px 1px 2px rgba(255,255,255,0.9);
-    pointer-events:none;
+    transform:translate(-50%,-50%);
+    font-weight:bold;
 }
 
-/* END SCREEN */
-
-#end{
-    text-align:center;
+/* Feedback */
+#feedback{
+    font-size:40px;
+    margin-top:10px;
 }
 
-#end h1{
-    color:#7b1fa2;
-    margin-bottom:10px;
-}
-
-#scoreText{
-    font-size:30px;
-    margin-bottom:20px;
-}
-
+/* End */
+#end h1{ color:#7b1fa2; }
 .replay-btn{
-    padding:14px 28px;
-    border:none;
-    border-radius:18px;
+    padding:12px;
+    font-size:18px;
     background:#ffb74d;
-    font-size:22px;
-    cursor:pointer;
+    border:none;
+    border-radius:10px;
 }
-
-.stars{
-    font-size:30px;
-    animation:twinkle 1s infinite alternate;
-    margin-bottom:15px;
-}
-
-@keyframes twinkle{
-    from{
-        transform:scale(1);
-        opacity:0.8;
-    }
-    to{
-        transform:scale(1.1);
-        opacity:1;
-    }
-}
-
 </style>
 </head>
 
 <body>
 
+<!-- INTRO -->
 <div id="intro" class="screen active">
-    <img src="assets/innovine-logo.png">
+<img src="assets/innovine-logo.png">
 </div>
 
+<!-- GAME -->
 <div id="game" class="screen">
 
 <div class="top-bar">
-Read the words that appear with the balloon outline and colour the balloon as per the colour code of the crayons.
+Read the words and tap the correct crayon.
 </div>
 
 <div class="game-content">
-
-<div class="balloon-wrapper">
 
 <div id="balloon" class="balloon"></div>
 
@@ -275,12 +150,10 @@ Read the words that appear with the balloon outline and colour the balloon as pe
 <div id="wordText" class="word-text"></div>
 </div>
 
-</div>
-
-<div id="feedback" class="feedback"></div>
+<div id="feedback"></div>
 
 <img id="confetti" src="assets/confetti.gif"
-style="display:none;width:180px;position:absolute;top:35%;left:50%;transform:translateX(-50%);">
+style="display:none;position:absolute;top:40%;width:150px;">
 
 <div class="crayon-row">
 
@@ -309,8 +182,124 @@ style="display:none;width:180px;position:absolute;top:35%;left:50%;transform:tra
 </div>
 </div>
 
+<!-- END -->
 <div id="end" class="screen">
-<div class="stars">⭐ ⭐ ⭐</div>
 <h1>🎉 Great Job!</h1>
 <div id="scoreText"></div>
-<button class="replay-btn" onclick="restartGame()">🔄 Replay</button>
+<button class="replay-btn" onclick="restartGame()">Replay</button>
+</div>
+
+<!-- AUDIO -->
+<audio id="wrongSound" src="assets/wrong.mp3"></audio>
+<audio id="bgMusic" src="assets/background-music.mp3" loop></audio>
+
+<script>
+
+/* QUESTIONS (fixed) */
+const questions = [
+{word:"jet", family:"et", img:"assets/jet.png"},
+{word:"net", family:"et", img:"assets/net.png"},
+{word:"pet", family:"et", img:"assets/pet.png"},
+{word:"wet", family:"et", img:"assets/wet.png"},
+
+{word:"leg", family:"eg", img:"assets/leg.png"},
+{word:"peg", family:"eg", img:"assets/peg.png"},
+{word:"beg", family:"eg", img:"assets/beg.png"},
+
+{word:"hen", family:"en", img:"assets/hen.png"},
+{word:"pen", family:"en", img:"assets/pen.png"},
+{word:"ten", family:"en", img:"assets/ten.png"},
+{word:"den", family:"en", img:"assets/den.png"},
+
+{word:"bed", family:"ed", img:"assets/bed.png"},
+{word:"red", family:"ed", img:"assets/red.png"}
+];
+
+questions.sort(()=>Math.random()-0.5);
+
+let current=0;
+let score=0;
+let locked=false;
+
+/* Speech */
+function speak(text){
+let msg=new SpeechSynthesisUtterance(text);
+speechSynthesis.speak(msg);
+}
+
+/* Start */
+setTimeout(()=>{
+document.getElementById("intro").classList.remove("active");
+document.getElementById("game").classList.add("active");
+
+speak("Look at the word and picture. Tap the correct crayon.");
+
+setTimeout(()=>{
+document.getElementById("bgMusic").volume=0.2;
+document.getElementById("bgMusic").play().catch(()=>{});
+loadQuestion();
+},3000);
+
+},5000);
+
+/* Load */
+function loadQuestion(){
+locked=false;
+let q=questions[current];
+wordText.innerText=q.word;
+wordImage.src=q.img;
+feedback.innerText="";
+balloon.style.background="white";
+speak(q.word);
+}
+
+/* Check */
+function checkAnswer(ans){
+if(locked) return;
+let q=questions[current];
+
+if(ans===q.family){
+locked=true;
+score++;
+
+confetti.style.display="block";
+feedback.innerText="✅";
+
+setTimeout(()=>{
+confetti.style.display="none";
+current++;
+if(current<questions.length){
+loadQuestion();
+}else{
+showEnd();
+}
+},1500);
+
+}else{
+wrongSound.play();
+feedback.innerText="❌";
+setTimeout(()=>{feedback.innerText="";},1000);
+}
+}
+
+/* End */
+function showEnd(){
+game.classList.remove("active");
+end.classList.add("active");
+scoreText.innerText="Score: "+score+"/"+questions.length;
+}
+
+/* Replay */
+function restartGame(){
+current=0;
+score=0;
+questions.sort(()=>Math.random()-0.5);
+end.classList.remove("active");
+game.classList.add("active");
+loadQuestion();
+}
+
+</script>
+
+</body>
+</html>
