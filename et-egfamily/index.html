@@ -26,11 +26,9 @@ body{
 .active{display:flex;}
 
 /* logo */
-#intro img{
-    width:180px;
-}
+#intro img{ width:180px; }
 
-/* instruction */
+/* top bar */
 .top-bar{
     width:100%;
     background:#d9c8f3;
@@ -58,9 +56,8 @@ body{
     width:170px;
     text-align:center;
 }
-.word-card img{
-    width:80px;
-}
+.word-card img{ width:80px; }
+
 .word-text{
     font-size:28px;
     font-weight:bold;
@@ -78,11 +75,9 @@ body{
 .crayon{
     width:23%;
     position:relative;
+    cursor:pointer;
 }
-
-.crayon img{
-    width:100%;
-}
+.crayon img{ width:100%; }
 
 .crayon-label{
     position:absolute;
@@ -171,9 +166,9 @@ Read the word and tap the correct crayon.
 
 <!-- END -->
 <div id="end" class="screen">
-    <h1>🎉 Great Job!</h1>
-    <div id="scoreText"></div>
-    <button class="replay-btn" onclick="restartGame()">Replay</button>
+<h1>🎉 Great Job!</h1>
+<div id="scoreText"></div>
+<button class="replay-btn" onclick="restartGame()">Replay</button>
 </div>
 
 <!-- AUDIO -->
@@ -182,7 +177,6 @@ Read the word and tap the correct crayon.
 
 <script>
 
-/* QUESTIONS */
 const questions = [
 {word:"jet", family:"et", img:"assets/jet.png"},
 {word:"net", family:"et", img:"assets/net.png"},
@@ -202,18 +196,13 @@ const questions = [
 {word:"red", family:"ed", img:"assets/red.png"}
 ];
 
-/* PRELOAD IMAGES */
-questions.forEach(q=>{
-    let img=new Image();
-    img.src=q.img;
-});
+questions.sort(()=>Math.random()-0.5);
 
-/* STATE */
 let current=0;
 let score=0;
 let locked=false;
 
-/* ELEMENTS */
+/* elements */
 const intro=document.getElementById("intro");
 const game=document.getElementById("game");
 const end=document.getElementById("end");
@@ -223,7 +212,7 @@ const feedback=document.getElementById("feedback");
 const balloon=document.getElementById("balloon");
 const confetti=document.getElementById("confetti");
 
-/* SPEECH */
+/* speech */
 function speak(text){
     speechSynthesis.cancel();
     let msg=new SpeechSynthesisUtterance(text);
@@ -231,7 +220,7 @@ function speak(text){
     speechSynthesis.speak(msg);
 }
 
-/* START */
+/* start */
 setTimeout(()=>{
     intro.classList.remove("active");
     game.classList.add("active");
@@ -245,7 +234,7 @@ setTimeout(()=>{
 
 },5000);
 
-/* LOAD */
+/* load */
 function loadQuestion(){
     locked=false;
     let q=questions[current];
@@ -259,8 +248,9 @@ function loadQuestion(){
     speak(q.word);
 }
 
-/* CHECK */
+/* check */
 function checkAnswer(ans){
+
     if(locked) return;
 
     let q=questions[current];
@@ -269,6 +259,12 @@ function checkAnswer(ans){
 
         locked=true;
         score++;
+
+        /* 🎨 COLOR APPLY */
+        if(ans==="et") balloon.style.background="#e57373";
+        if(ans==="eg") balloon.style.background="#64b5f6";
+        if(ans==="en") balloon.style.background="#81c784";
+        if(ans==="ed") balloon.style.background="#ffd54f";
 
         confetti.style.display="block";
         feedback.innerText="✅";
@@ -282,18 +278,20 @@ function checkAnswer(ans){
             }else{
                 showEnd();
             }
-        },1400);
+        },1500);
 
     }else{
 
         document.getElementById("wrongSound").play();
         feedback.innerText="❌";
 
-        setTimeout(()=>{feedback.innerText="";},900);
+        setTimeout(()=>{
+            feedback.innerText="";
+        },1000);
     }
 }
 
-/* END */
+/* end */
 function showEnd(){
     game.classList.remove("active");
     end.classList.add("active");
@@ -301,7 +299,7 @@ function showEnd(){
     "⭐ Score: "+score+" / "+questions.length;
 }
 
-/* REPLAY */
+/* replay */
 function restartGame(){
     current=0;
     score=0;
