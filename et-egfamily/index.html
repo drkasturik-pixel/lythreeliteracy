@@ -1,26 +1,20 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<title>Word Family Balloon Crayons</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balloon Crayon Game</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
 body{
-    font-family:Arial, sans-serif;
+    margin:0;
+    font-family:Arial;
     background:#f7f2ff;
     overflow:hidden;
 }
 
-/* Screens */
+/* screens */
 .screen{
     display:none;
     width:100%;
@@ -29,64 +23,54 @@ body{
     align-items:center;
     flex-direction:column;
 }
+.active{display:flex;}
 
-.active{ display:flex; }
+/* logo */
+#intro img{
+    width:180px;
+}
 
-/* Intro */
-#intro img{ width:180px; }
-
-/* Top bar */
+/* instruction */
 .top-bar{
     width:100%;
     background:#d9c8f3;
     padding:10px;
-    text-align:center;
     font-size:14px;
     font-weight:bold;
+    text-align:center;
 }
 
-/* Game layout */
-.game-content{
-    width:100%;
-    height:calc(100vh - 50px);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-}
-
-/* Balloon */
+/* balloon */
 .balloon{
     width:130px;
     height:160px;
     border-radius:50%;
     border:5px solid #888;
-    margin-top:10px;
+    margin:10px;
+    transition:0.3s;
 }
 
-/* Word card */
+/* card */
 .word-card{
-    margin-top:20px;
-    width:170px;
-    background:white;
-    border-radius:15px;
-    text-align:center;
+    background:#fff;
     padding:10px;
+    border-radius:12px;
+    width:170px;
+    text-align:center;
 }
-
 .word-card img{
     width:80px;
 }
-
 .word-text{
     font-size:28px;
     font-weight:bold;
 }
 
-/* Crayons */
+/* crayons */
 .crayon-row{
-    width:100%;
     display:flex;
     justify-content:space-around;
+    width:100%;
     position:absolute;
     bottom:0;
 }
@@ -94,7 +78,6 @@ body{
 .crayon{
     width:23%;
     position:relative;
-    cursor:pointer;
 }
 
 .crayon img{
@@ -109,14 +92,22 @@ body{
     font-weight:bold;
 }
 
-/* Feedback */
+/* feedback */
 #feedback{
     font-size:40px;
-    margin-top:10px;
 }
 
-/* End */
-#end h1{ color:#7b1fa2; }
+/* confetti */
+#confetti{
+    display:none;
+    position:absolute;
+    top:35%;
+    left:50%;
+    transform:translateX(-50%);
+    width:160px;
+}
+
+/* end */
 .replay-btn{
     padding:12px;
     font-size:18px;
@@ -131,62 +122,58 @@ body{
 
 <!-- INTRO -->
 <div id="intro" class="screen active">
-<img src="assets/innovine-logo.png">
+    <img src="assets/innovine-logo.png">
 </div>
 
 <!-- GAME -->
 <div id="game" class="screen">
 
 <div class="top-bar">
-Read the words and tap the correct crayon.
+Read the word and tap the correct crayon.
 </div>
-
-<div class="game-content">
 
 <div id="balloon" class="balloon"></div>
 
 <div class="word-card">
-<img id="wordImage">
-<div id="wordText" class="word-text"></div>
+    <img id="wordImage">
+    <div id="wordText" class="word-text"></div>
 </div>
 
 <div id="feedback"></div>
 
-<img id="confetti" src="assets/confetti.gif"
-style="display:none;position:absolute;top:40%;width:150px;">
+<img id="confetti" src="assets/confetti.gif">
 
 <div class="crayon-row">
 
 <div class="crayon" onclick="checkAnswer('et')">
-<img src="assets/redcrayon.png">
-<div class="crayon-label">-et</div>
+    <img src="assets/redcrayon.png">
+    <div class="crayon-label">-et</div>
 </div>
 
 <div class="crayon" onclick="checkAnswer('eg')">
-<img src="assets/bluecrayon.png">
-<div class="crayon-label">-eg</div>
+    <img src="assets/bluecrayon.png">
+    <div class="crayon-label">-eg</div>
 </div>
 
 <div class="crayon" onclick="checkAnswer('en')">
-<img src="assets/greencrayon.png">
-<div class="crayon-label">-en</div>
+    <img src="assets/greencrayon.png">
+    <div class="crayon-label">-en</div>
 </div>
 
 <div class="crayon" onclick="checkAnswer('ed')">
-<img src="assets/yellowcrayon.png">
-<div class="crayon-label">-ed</div>
+    <img src="assets/yellowcrayon.png">
+    <div class="crayon-label">-ed</div>
 </div>
 
 </div>
 
-</div>
 </div>
 
 <!-- END -->
 <div id="end" class="screen">
-<h1>🎉 Great Job!</h1>
-<div id="scoreText"></div>
-<button class="replay-btn" onclick="restartGame()">Replay</button>
+    <h1>🎉 Great Job!</h1>
+    <div id="scoreText"></div>
+    <button class="replay-btn" onclick="restartGame()">Replay</button>
 </div>
 
 <!-- AUDIO -->
@@ -195,7 +182,7 @@ style="display:none;position:absolute;top:40%;width:150px;">
 
 <script>
 
-/* QUESTIONS (fixed) */
+/* QUESTIONS */
 const questions = [
 {word:"jet", family:"et", img:"assets/jet.png"},
 {word:"net", family:"et", img:"assets/net.png"},
@@ -215,88 +202,115 @@ const questions = [
 {word:"red", family:"ed", img:"assets/red.png"}
 ];
 
-questions.sort(()=>Math.random()-0.5);
+/* PRELOAD IMAGES */
+questions.forEach(q=>{
+    let img=new Image();
+    img.src=q.img;
+});
 
+/* STATE */
 let current=0;
 let score=0;
 let locked=false;
 
-/* Speech */
+/* ELEMENTS */
+const intro=document.getElementById("intro");
+const game=document.getElementById("game");
+const end=document.getElementById("end");
+const wordText=document.getElementById("wordText");
+const wordImage=document.getElementById("wordImage");
+const feedback=document.getElementById("feedback");
+const balloon=document.getElementById("balloon");
+const confetti=document.getElementById("confetti");
+
+/* SPEECH */
 function speak(text){
-let msg=new SpeechSynthesisUtterance(text);
-speechSynthesis.speak(msg);
+    speechSynthesis.cancel();
+    let msg=new SpeechSynthesisUtterance(text);
+    msg.rate=0.8;
+    speechSynthesis.speak(msg);
 }
 
-/* Start */
+/* START */
 setTimeout(()=>{
-document.getElementById("intro").classList.remove("active");
-document.getElementById("game").classList.add("active");
+    intro.classList.remove("active");
+    game.classList.add("active");
 
-speak("Look at the word and picture. Tap the correct crayon.");
+    speak("Look at the word and picture. Tap the correct crayon.");
 
-setTimeout(()=>{
-document.getElementById("bgMusic").volume=0.2;
-document.getElementById("bgMusic").play().catch(()=>{});
-loadQuestion();
-},3000);
+    setTimeout(()=>{
+        document.getElementById("bgMusic").play().catch(()=>{});
+        loadQuestion();
+    },3000);
 
 },5000);
 
-/* Load */
+/* LOAD */
 function loadQuestion(){
-locked=false;
-let q=questions[current];
-wordText.innerText=q.word;
-wordImage.src=q.img;
-feedback.innerText="";
-balloon.style.background="white";
-speak(q.word);
+    locked=false;
+    let q=questions[current];
+
+    wordText.innerText=q.word;
+    wordImage.src=q.img;
+
+    feedback.innerText="";
+    balloon.style.background="white";
+
+    speak(q.word);
 }
 
-/* Check */
+/* CHECK */
 function checkAnswer(ans){
-if(locked) return;
-let q=questions[current];
+    if(locked) return;
 
-if(ans===q.family){
-locked=true;
-score++;
+    let q=questions[current];
 
-confetti.style.display="block";
-feedback.innerText="✅";
+    if(ans===q.family){
 
-setTimeout(()=>{
-confetti.style.display="none";
-current++;
-if(current<questions.length){
-loadQuestion();
-}else{
-showEnd();
+        locked=true;
+        score++;
+
+        confetti.style.display="block";
+        feedback.innerText="✅";
+
+        setTimeout(()=>{
+            confetti.style.display="none";
+            current++;
+
+            if(current<questions.length){
+                loadQuestion();
+            }else{
+                showEnd();
+            }
+        },1400);
+
+    }else{
+
+        document.getElementById("wrongSound").play();
+        feedback.innerText="❌";
+
+        setTimeout(()=>{feedback.innerText="";},900);
+    }
 }
-},1500);
 
-}else{
-wrongSound.play();
-feedback.innerText="❌";
-setTimeout(()=>{feedback.innerText="";},1000);
-}
-}
-
-/* End */
+/* END */
 function showEnd(){
-game.classList.remove("active");
-end.classList.add("active");
-scoreText.innerText="Score: "+score+"/"+questions.length;
+    game.classList.remove("active");
+    end.classList.add("active");
+    document.getElementById("scoreText").innerText =
+    "⭐ Score: "+score+" / "+questions.length;
 }
 
-/* Replay */
+/* REPLAY */
 function restartGame(){
-current=0;
-score=0;
-questions.sort(()=>Math.random()-0.5);
-end.classList.remove("active");
-game.classList.add("active");
-loadQuestion();
+    current=0;
+    score=0;
+    questions.sort(()=>Math.random()-0.5);
+
+    end.classList.remove("active");
+    game.classList.add("active");
+
+    loadQuestion();
 }
 
 </script>
