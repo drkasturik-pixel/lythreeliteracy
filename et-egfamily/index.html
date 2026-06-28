@@ -195,8 +195,6 @@ body{
     object-fit:contain;
 }
 
-/* UPDATED LABEL POSITION */
-
 .crayon-label{
     position:absolute;
     top:48%;
@@ -234,8 +232,6 @@ body{
     cursor:pointer;
 }
 
-/* STARS */
-
 .stars{
     font-size:30px;
     animation:twinkle 1s infinite alternate;
@@ -243,67 +239,13 @@ body{
 }
 
 @keyframes twinkle{
-
     from{
         transform:scale(1);
         opacity:0.8;
     }
-
     to{
         transform:scale(1.1);
         opacity:1;
-    }
-}
-
-/* MOBILE */
-
-@media(max-width:600px){
-
-    .top-bar{
-        font-size:12px;
-        padding:8px 6px;
-    }
-
-    .balloon-wrapper{
-        transform:scale(0.72);
-    }
-
-    .word-card{
-        width:150px;
-    }
-
-    .word-card img{
-        width:68px;
-        height:68px;
-    }
-
-    .word-text{
-        font-size:24px;
-    }
-
-    .feedback{
-        font-size:36px;
-    }
-
-    .crayon-row{
-        height:120px;
-    }
-
-    .crayon{
-        height:110px;
-    }
-
-    .crayon-label{
-        font-size:14px;
-    }
-
-    #scoreText{
-        font-size:24px;
-    }
-
-    .replay-btn{
-        font-size:18px;
-        padding:12px 24px;
     }
 }
 
@@ -312,322 +254,63 @@ body{
 
 <body>
 
-<!-- INTRO -->
-
 <div id="intro" class="screen active">
-
     <img src="assets/innovine-logo.png">
-
 </div>
-
-<!-- GAME -->
 
 <div id="game" class="screen">
 
-    <div class="top-bar">
-        Read the words that appear with the balloon outline and colour the balloon as per the colour code of the crayons.
-    </div>
+<div class="top-bar">
+Read the words that appear with the balloon outline and colour the balloon as per the colour code of the crayons.
+</div>
 
-    <div class="game-content">
+<div class="game-content">
 
-        <!-- BALLOON -->
+<div class="balloon-wrapper">
 
-        <div class="balloon-wrapper">
+<div id="balloon" class="balloon"></div>
 
-            <div id="balloon" class="balloon"></div>
-
-            <div class="word-card">
-
-                <img id="wordImage" src="">
-
-                <div id="wordText" class="word-text"></div>
-
-            </div>
-
-        </div>
-
-        <!-- FEEDBACK -->
-
-        <div id="feedback" class="feedback"></div><img
-    id="confetti"
-    src="assets/confetti.gif"
-    style="
-        display:none;
-        width:180px;
-        position:absolute;
-        top:35%;
-        left:50%;
-        transform:translateX(-50%);
-        pointer-events:none;
-        z-index:999;
-    ">
-
-        <!-- CRAYONS -->
-
-        <div class="crayon-row">
-
-            <!-- RED -->
-
-            <div class="crayon" onclick="checkAnswer('et')">
-
-                <img src="assets/redcrayon.png">
-
-                <div class="crayon-label">-et</div>
-
-            </div>
-
-            <!-- BLUE -->
-
-            <div class="crayon" onclick="checkAnswer('eg')">
-
-                <img src="assets/bluecrayon.png">
-
-                <div class="crayon-label">-eg</div>
-
-            </div>
-
-            <!-- GREEN -->
-
-            <div class="crayon" onclick="checkAnswer('en')">
-
-                <img src="assets/greencrayon.png">
-
-                <div class="crayon-label">-en</div>
-
-            </div>
-
-            <!-- YELLOW -->
-
-            <div class="crayon" onclick="checkAnswer('ed')">
-
-                <img src="assets/yellowcrayon.png">
-
-                <div class="crayon-label">-ed</div>
-
-            </div>
-
-        </div>
-
-    </div>
+<div class="word-card">
+<img id="wordImage">
+<div id="wordText" class="word-text"></div>
+</div>
 
 </div>
 
-<!-- END -->
+<div id="feedback" class="feedback"></div>
+
+<img id="confetti" src="assets/confetti.gif"
+style="display:none;width:180px;position:absolute;top:35%;left:50%;transform:translateX(-50%);">
+
+<div class="crayon-row">
+
+<div class="crayon" onclick="checkAnswer('et')">
+<img src="assets/redcrayon.png">
+<div class="crayon-label">-et</div>
+</div>
+
+<div class="crayon" onclick="checkAnswer('eg')">
+<img src="assets/bluecrayon.png">
+<div class="crayon-label">-eg</div>
+</div>
+
+<div class="crayon" onclick="checkAnswer('en')">
+<img src="assets/greencrayon.png">
+<div class="crayon-label">-en</div>
+</div>
+
+<div class="crayon" onclick="checkAnswer('ed')">
+<img src="assets/yellowcrayon.png">
+<div class="crayon-label">-ed</div>
+</div>
+
+</div>
+
+</div>
+</div>
 
 <div id="end" class="screen">
-
-    <div class="stars">⭐ ⭐ ⭐</div>
-
-    <h1>🎉 Great Job!</h1>
-
-    <div id="scoreText"></div>
-
-    <button class="replay-btn" onclick="restartGame()">
-        🔄 Replay
-    </button>
-
-</div>
-
-<!-- AUDIO -->
-
-
-<audio id="wrongSound" src="assets/wrong.mp3"></audio>
-
-<audio id="bgMusic" src="assets/background-music.mp3" loop></audio>
-
-<script>
-
-// QUESTIONS
-
-const questions = [
-
-{word:"jet", family:"et", img:"assets/jet.png"},
-{word:"net", family:"et", img:"assets/net.png"},
-{word:"pet", family:"et", img:"assets/pet.png"},
-{word:"wet", family:"et", img:"assets/wet.png"},
-
-{word:"leg", family:"eg", img:"assets/leg.png"},
-{word:"peg", family:"eg", img:"assets/peg.png"},
-{word:"egg", family:"eg", img:"assets/egg.png"},
-{word:"beg", family:"eg", img:"assets/beg.png"},
-
-{word:"hen", family:"en", img:"assets/hen.png"},
-{word:"pen", family:"en", img:"assets/pen.png"},
-{word:"ten", family:"en", img:"assets/ten.png"},
-{word:"den", family:"en", img:"assets/den.png"},
-
-{word:"bed", family:"ed", img:"assets/bed.png"},
-{word:"shed", family:"ed", img:"assets/shed.png"},
-{word:"red", family:"ed", img:"assets/red.png"}
-
-];
-
-// SHUFFLE
-
-questions.sort(()=>Math.random()-0.5);
-
-let current = 0;
-let score = 0;
-let locked = false;
-
-// SPEAK
-
-function speak(text, rate=0.78){
-
-    let msg = new SpeechSynthesisUtterance(text);
-
-    msg.rate = rate;
-
-    speechSynthesis.speak(msg);
-}
-
-// START GAME
-
-setTimeout(()=>{
-
-    document.getElementById("intro").classList.remove("active");
-
-    document.getElementById("game").classList.add("active");
-
-    speak("Look at the word and picture tied to the balloon. Tap the correct colour crayon.");
-
-    setTimeout(()=>{
-
-        let music = document.getElementById("bgMusic");
-
-        music.volume = 0.18;
-
-        music.play().catch(()=>{});
-
-        loadQuestion();
-
-    },4000);
-
-},5000);
-
-// LOAD QUESTION
-
-function loadQuestion(){
-
-    locked = false;
-
-    let q = questions[current];
-
-    document.getElementById("wordText").innerText = q.word;
-
-    document.getElementById("wordImage").src = q.img;
-
-    document.getElementById("feedback").innerText = "";
-
-    document.getElementById("balloon").style.background = "white";
-
-    speak(q.word);
-}
-
-// CHECK ANSWER
-
-function checkAnswer(answer){
-
-    if(locked) return;
-
-    let q = questions[current];
-
-    let balloon = document.getElementById("balloon");
-
-    let feedback = document.getElementById("feedback");
-
-    if(answer === q.family){
-
-        locked = true;
-
-       score++;
-
-let confetti =
-document.getElementById("confetti");
-
-confetti.style.display = "block";
-
-feedback.innerText = "✅";
-
-        if(answer === "et"){
-            balloon.style.background = "#e57373";
-        }
-
-        if(answer === "eg"){
-            balloon.style.background = "#64b5f6";
-        }
-
-        if(answer === "en"){
-            balloon.style.background = "#81c784";
-        }
-
-        if(answer === "ed"){
-            balloon.style.background = "#ffd54f";
-        }
-
-        setTimeout(()=>{
-
-    document.getElementById(
-        "confetti"
-    ).style.display = "none";
-
-    current++;
-
-    if(current < questions.length){
-
-        loadQuestion();
-
-    }else{
-
-        showEnd();
-    }
-
-},1500);
-
-    }else{
-
-        document.getElementById("wrongSound").play();
-
-        feedback.innerText = "❌";
-
-        setTimeout(()=>{
-            feedback.innerText = ""; document.getElementById(
-    "confetti"
-).style.display = "none";
-        },1000);
-    }
-}
-
-// END SCREEN
-
-function showEnd(){
-
-    document.getElementById("game").classList.remove("active");
-
-    document.getElementById("end").classList.add("active");
-
-    document.getElementById("scoreText").innerText =
-    "⭐ Score: " + score + " / " + questions.length;
-}
-
-// REPLAY
-
-function restartGame(){
-
-    current = 0;
-
-    score = 0;
-
-    questions.sort(()=>Math.random()-0.5);
-
-    document.getElementById("end").classList.remove("active");
-
-    document.getElementById("game").classList.add("active");
-
-    loadQuestion();
-}
-
-</script>
-
-</body>
-</html>
+<div class="stars">⭐ ⭐ ⭐</div>
+<h1>🎉 Great Job!</h1>
+<div id="scoreText"></div>
+<button class="replay-btn" onclick="restartGame()">🔄 Replay</button>
